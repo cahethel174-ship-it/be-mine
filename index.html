@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Valentine ?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0e2a 0%, #1a237e 100%);
+            color: #fff;
+            font-family: 'Playfair Display', 'Times New Roman', serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Effets de lumière élégants */
+        .light-beam {
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(233, 30, 99, 0.1) 0%, transparent 70%);
+            animation: rotateBeam 60s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotateBeam {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            max-width: 700px;
+            margin: 20px;
+            animation: containerFloat 8s ease-in-out infinite;
+        }
+
+        @keyframes containerFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(0.5deg);
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 0%, #ffccd5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+            h1:after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 25%;
+                width: 50%;
+                height: 2px;
+                background: linear-gradient(90deg, transparent, #e91e63, transparent);
+                animation: linePulse 3s infinite;
+            }
+
+        @keyframes linePulse {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scaleX(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleX(1.2);
+            }
+        }
+
+        .question-mark {
+            display: inline-block;
+            animation: questionFloat 4s ease-in-out infinite;
+            color: #ff4081;
+            text-shadow: 0 0 20px rgba(255, 64, 129, 0.5);
+        }
+
+        @keyframes questionFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .yes-btn {
+            padding: 22px 65px;
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #e91e63 0%, #ff4081 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(233, 30, 99, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+            .yes-btn:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                transition: 0.5s;
+            }
+
+            .yes-btn:hover {
+                transform: translateY(-5px) scale(1.05);
+                box-shadow: 0 15px 40px rgba(233, 30, 99, 0.5), 0 0 30px rgba(255, 64, 129, 0.4);
+                letter-spacing: 2px;
+            }
+
+                .yes-btn:hover:before {
+                    left: 100%;
+                }
+
+        .no-btn {
+            padding: 22px 65px;
+            font-size: 1.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Playfair Display', serif;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+            .no-btn:before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+                opacity: 0;
+                transition: opacity 0.3s;
+            }
+
+            .no-btn:hover {
+                border-color: rgba(255, 255, 255, 0.3);
+                color: white;
+                transform: translateY(-2px);
+            }
+
+                .no-btn:hover:before {
+                    opacity: 1;
+                }
+
+        .message {
+            margin-top: 50px;
+            font-size: 2.2rem;
+            color: #ffccd5;
+            min-height: 100px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-style: italic;
+            text-shadow: 0 0 10px rgba(255, 204, 213, 0.3);
+        }
+
+            .message.show {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        /* Effets WOAH élégants */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 5;
+            box-shadow: 0 0 10px 2px white;
+            animation: sparkleFade 1.5s ease-out forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .gold-dust {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ffd700;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 4;
+            animation: goldFall 3s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes goldFall {
+            0% {
+                transform: translateY(-10px) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .elegant-heart {
+            position: absolute;
+            font-size: 28px;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            animation: heartElegant 4s ease-out forwards;
+        }
+
+        @keyframes heartElegant {
+            0% {
+                transform: translateY(0) scale(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 1;
+                transform: translateY(-20px) scale(1.1) rotate(10deg);
+            }
+
+            40% {
+                transform: translateY(-40px) scale(1) rotate(-10deg);
+            }
+
+            60% {
+                transform: translateY(-60px) scale(1.1) rotate(10deg);
+            }
+
+            80% {
+                opacity: 1;
+                transform: translateY(-80px) scale(1) rotate(-10deg);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0.8) rotate(0deg);
+            }
+        }
+
+        .crystal-effect {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, transparent 30%, rgba(255, 255, 255, 0.1) 70%, transparent 100%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            animation: crystalExpand 2s ease-out forwards;
+            filter: blur(10px);
+        }
+
+        @keyframes crystalExpand {
+            0% {
+                transform: scale(0);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 0;
+            }
+        }
+
+        .floating-diamond {
+            position: fixed;
+            font-size: 24px;
+            opacity: 0.1;
+            z-index: 1;
+            animation: diamondFloat 20s linear infinite;
+        }
+
+        @keyframes diamondFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(100px) rotate(360deg);
+            }
+        }
+
+        /* Animation spéciale pour le bouton NON qui fuit */
+        .no-btn.escape {
+            animation: elegantEscape 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+
+        @keyframes elegantEscape {
+            0% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+
+            30% {
+                transform: translateX(50px) rotate(10deg);
+                opacity: 0.9;
+            }
+
+            60% {
+                transform: translateX(-80px) rotate(-15deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateX(calc(100vw + 100px)) rotate(30deg);
+                opacity: 0;
+            }
+        }
+
+        .no-btn.return {
+            animation: elegantReturn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+        }
+
+        @keyframes elegantReturn {
+            0% {
+                transform: translateX(calc(-100vw - 100px)) rotate(-30deg);
+                opacity: 0;
+            }
+
+            70% {
+                transform: translateX(20px) rotate(5deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translateX(0) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .meteor {
+            position: fixed;
+            width: 2px;
+            height: 60px;
+            background: linear-gradient(to bottom, transparent, white, transparent);
+            pointer-events: none;
+            z-index: 6;
+            animation: meteorShoot 2s linear forwards;
+            filter: blur(1px);
+        }
+
+        @keyframes meteorShoot {
+            0% {
+                transform: translateX(-100px) translateY(-100px) rotate(45deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateX(100vw) translateY(100vh) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .yes-btn, .no-btn {
+                padding: 18px 45px;
+                font-size: 1.5rem;
+            }
+
+            .message {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 40px 25px;
+                margin: 15px;
+            }
+
+            .buttons-container {
+                gap: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .yes-btn, .no-btn {
+                padding: 15px 35px;
+                font-size: 1.3rem;
+                width: 90%;
+            }
+
+            .message {
+                font-size: 1.5rem;
+            }
+        }
+
+        .signature {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.3);
+            font-style: italic;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div class="light-beam"></div>
+
+    <div class="container">
+        <h1>
+            Veux-tu être ma Valentine
+            <span class="question-mark">?</span>
+        </h1>
+
+        <div class="buttons-container">
+            <button class="yes-btn" onclick="acceptProposal()">
+                Avec joie
+            </button>
+            <button class="no-btn" id="noBtn">
+                Peut-être
+            </button>
+        </div>
+
+        <div class="message" id="message"></div>
+    </div>
+
+    <div class="signature">Une question du cœur</div>
+
+    <script>
+        // Initialiser les diamants flottants
+        function initFloatingDiamonds() {
+            const diamonds = ['💎', '✨', '🌟', '💫'];
+            for (let i = 0; i < 12; i++) {
+                const diamond = document.createElement('div');
+                diamond.classList.add('floating-diamond');
+                diamond.textContent = diamonds[Math.floor(Math.random() * diamonds.length)];
+
+                diamond.style.left = `${Math.random() * 100}%`;
+                diamond.style.top = `${Math.random() * 100}%`;
+                diamond.style.animationDelay = `${Math.random() * 20}s`;
+                diamond.style.animationDuration = `${Math.random() * 15 + 15}s`;
+                diamond.style.opacity = Math.random() * 0.15 + 0.05;
+                diamond.style.fontSize = `${Math.random() * 20 + 15}px`;
+
+                document.body.appendChild(diamond);
+            }
+        }
+
+        // Fonction d'acceptation élégante
+        function acceptProposal() {
+            const message = document.getElementById('message');
+            message.textContent = "Je suis aux anges ! Mon cœur bat la chamade 💓";
+            message.classList.add('show');
+
+            // Effets WOAH élégants
+            createElegantHearts(25);
+            createSparkles(50);
+            createGoldDust(30);
+            createCrystalEffect(window.innerWidth / 2, window.innerHeight / 2);
+
+            // Météorites de célébration
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createMeteor(), i * 200);
+            }
+
+            // Transformer le bouton OUI
+            const yesBtn = document.querySelector('.yes-btn');
+            yesBtn.style.pointerEvents = 'none';
+            yesBtn.innerHTML = '💖 Oui pour toujours 💖';
+            yesBtn.style.background = 'linear-gradient(135deg, #ff4081 0%, #ff80ab 100%)';
+            yesBtn.style.animation = 'none';
+            yesBtn.style.transform = 'scale(1.1)';
+
+            // Cacher le bouton NON
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.display = 'none';
+
+            // Ajouter un effet de poussière d'or continue
+            const goldInterval = setInterval(() => {
+                createGoldDust(3);
+            }, 1000);
+
+            // Arrêter après 30 secondes
+            setTimeout(() => clearInterval(goldInterval), 30000);
+        }
+
+        // Gestion du bouton NON
+        const noBtn = document.getElementById('noBtn');
+        let isEscaping = false;
+        let escapeTimeout;
+
+        noBtn.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (isEscaping) return;
+
+            isEscaping = true;
+
+            // Animation de fuite élégante
+            this.classList.add('escape');
+
+            // Effets visuels
+            createSparkles(15);
+            createElegantHearts(5);
+
+            // Message subtil
+            const messages = [
+                "Le cœur a ses raisons...",
+                "L'amour prend son temps",
+                "Le charme opère lentement",
+                "Patience, douce patience"
+            ];
+
+            const message = document.getElementById('message');
+            message.textContent = messages[Math.floor(Math.random() * messages.length)];
+            message.classList.add('show');
+
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 2000);
+
+            // Retour élégant après 2 secondes
+            clearTimeout(escapeTimeout);
+            escapeTimeout = setTimeout(() => {
+                this.classList.remove('escape');
+                this.classList.add('return');
+
+                // Réinitialiser après animation
+                setTimeout(() => {
+                    this.classList.remove('return');
+                    isEscaping = false;
+
+                    // Petit effet de retour
+                    createCrystalEffect(
+                        this.getBoundingClientRect().left + this.offsetWidth / 2,
+                        this.getBoundingClientRect().top + this.offsetHeight / 2
+                    );
+                }, 800);
+            }, 2000);
+        });
+
+        // Effets visuels élégants
+        function createSparkles(count) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.classList.add('sparkle');
+
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight;
+
+                    sparkle.style.left = `${x}px`;
+                    sparkle.style.top = `${y}px`;
+                    sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+
+                    document.body.appendChild(sparkle);
+
+                    setTimeout(() => sparkle.remove(), 1500);
+                }, i * 30);
+            }
+        }
+
+        function createGoldDust(count) {
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const dust = document.createElement('div');
+                    dust.classList.add('gold-dust');
+
+                    const x = Math.random() * window.innerWidth;
+                    dust.style.left = `${x}px`;
+                    dust.style.top = `-10px`;
+
+                    dust.style.animationDuration = `${Math.random() * 2 + 2}s`;
+                    dust.style.animationDelay = `${Math.random() * 0.5}s`;
+
+                    // Taille aléatoire
+                    const size = Math.random() * 2 + 1;
+                    dust.style.width = `${size}px`;
+                    dust.style.height = `${size}px`;
+
+                    document.body.appendChild(dust);
+
+                    setTimeout(() => dust.remove(), 3000);
+                }, i * 50);
+            }
+        }
+
+        function createElegantHearts(count) {
+            const hearts = ['❤️', '💖', '💗', '💓', '💕'];
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.classList.add('elegant-heart');
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+
+                    // Position aléatoire en bas
+                    const x = Math.random() * window.innerWidth;
+                    heart.style.left = `${x}px`;
+                    heart.style.bottom = '0';
+
+                    // Couleurs pastel élégantes
+                    const colors = ['#ff4081', '#e91e63', '#ff80ab', '#f48fb1', '#f06292'];
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+
+                    // Animation variée
+                    heart.style.animationDuration = `${Math.random() * 2 + 3}s`;
+                    heart.style.fontSize = `${Math.random() * 20 + 20}px`;
+
+                    document.body.appendChild(heart);
+
+                    setTimeout(() => heart.remove(), 4000);
+                }, i * 100);
+            }
+        }
+
+        function createCrystalEffect(x, y) {
+            const crystal = document.createElement('div');
+            crystal.classList.add('crystal-effect');
+            crystal.style.left = `${x - 50}px`;
+            crystal.style.top = `${y - 50}px`;
+
+            document.body.appendChild(crystal);
+
+            setTimeout(() => crystal.remove(), 2000);
+        }
+
+        function createMeteor() {
+            const meteor = document.createElement('div');
+            meteor.classList.add('meteor');
+
+            // Position de départ aléatoire
+            const startX = Math.random() * window.innerWidth - 100;
+            meteor.style.left = `${startX}px`;
+            meteor.style.top = `-100px`;
+
+            // Rotation aléatoire
+            const rotation = Math.random() * 30 + 15;
+            meteor.style.transform = `rotate(${rotation}deg)`;
+
+            document.body.appendChild(meteor);
+
+            setTimeout(() => meteor.remove(), 2000);
+        }
+
+        // Effets aléatoires subtils
+        function createRandomEffects() {
+            if (Math.random() > 0.7) {
+                createSparkles(1);
+            }
+            if (Math.random() > 0.9) {
+                createElegantHearts(1);
+            }
+            if (Math.random() > 0.95) {
+                createMeteor();
+            }
+        }
+
+        // Initialisation
+        window.addEventListener('load', () => {
+            initFloatingDiamonds();
+
+            // Effets initiaux
+            createSparkles(20);
+            createGoldDust(15);
+
+            // Effets aléatoires continus
+            setInterval(createRandomEffects, 2000);
+
+            // Animation subtile du conteneur
+            setInterval(() => {
+                const container = document.querySelector('.container');
+                container.style.animation = 'none';
+                setTimeout(() => {
+                    container.style.animation = 'containerFloat 8s ease-in-out infinite';
+                }, 10);
+            }, 8000);
+        });
+    </script>
+</body>
+</html>
